@@ -32,7 +32,6 @@ import { remarkShokaSpoiler } from './src/lib/markdown/remark-shoka-spoiler.ts';
 import { shokaMetaTransformer } from './src/lib/markdown/shiki-meta-transformer.ts';
 import { normalizeUrl } from './src/lib/utils.ts';
 
-import cloudflare from '@astrojs/cloudflare';
 
 // Load YAML config directly with Node.js (before Vite plugins are available)
 // This is only used in astro.config.mjs - other files use @rollup/plugin-yaml
@@ -257,5 +256,4 @@ export default defineConfig({
   },
 
   trailingSlash: 'ignore',
-  adapter: cloudflare()
 });

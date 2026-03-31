@@ -30,7 +30,6 @@
   },
   "dependencies": {
     "@antv/infographic": "^0.2.4",
-    "@astrojs/cloudflare": "12.1.0",
     "@astrojs/netlify": "^6.6.4",
     "@astrojs/node": "^9.5.2",
     "@astrojs/react": "^4.4.2",
@@ -110,7 +109,6 @@
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
     "vfile": "^6.0.3",
-    "wrangler": "^4.78.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {
