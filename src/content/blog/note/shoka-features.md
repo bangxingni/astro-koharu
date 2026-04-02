@@ -185,7 +185,7 @@ E = mc^2^ 是质能方程
 +++
 ```
 
-~~~~markdown
+````markdown
 +++danger 危险操作
 请确保你知道自己在做什么！
 
@@ -193,7 +193,7 @@ E = mc^2^ 是质能方程
 rm -rf /  # 请勿执行此命令
 ```
 +++
-~~~~
+````
 
 +++primary 点击展开详细内容
 这里是折叠的内容，点击标题可以展开或收起。
@@ -202,14 +202,14 @@ rm -rf /  # 请勿执行此命令
 
 - 列表项 1
 - 列表项 2
-+++
+  +++
 
 +++warning 注意事项
 这里列出一些需要注意的问题：
 
 1. 注意事项一
 2. 注意事项二
-+++
+   +++
 
 +++danger 危险操作
 请确保你知道自己在做什么！
@@ -217,50 +217,63 @@ rm -rf /  # 请勿执行此命令
 ```bash
 rm -rf /  # 请勿执行此命令
 ```
+
 +++
 
 ## 标签卡 (Tabs)
 
 ````markdown
 ;;;tab1 JavaScript
+
 ```js
-console.log('Hello, World!');
+console.log("Hello, World!");
 ```
+
 ;;;
 
 ;;;tab1 Python
+
 ```python
 print('Hello, World!')
 ```
+
 ;;;
 
 ;;;tab1 Rust
+
 ```rust
 fn main() {
     println!("Hello, World!");
 }
 ```
+
 ;;;
 ````
 
 ;;;tab1 JavaScript
+
 ```js
-console.log('Hello, World!');
+console.log("Hello, World!");
 ```
+
 ;;;
 
 ;;;tab1 Python
+
 ```python
 print('Hello, World!')
 ```
+
 ;;;
 
 ;;;tab1 Rust
+
 ```rust
 fn main() {
     println!("Hello, World!");
 }
 ```
+
 ;;;
 
 ## 注音
@@ -277,10 +290,10 @@ fn main() {
 
 ## 代码块增强
 
-`````markdown
+````markdown
 ```js title="hello.js" url="https://example.com" linkText="查看源码" mark:1,3
-const greeting = 'Hello';
-const name = 'World';
+const greeting = "Hello";
+const name = "World";
 console.log(`${greeting}, ${name}!`);
 ```
 
@@ -289,11 +302,11 @@ npm install astro
 npm run dev
 npm run build
 ```
-`````
+````
 
 ```js title="hello.js" url="https://example.com" linkText="查看源码" mark:1,3
-const greeting = 'Hello';
-const name = 'World';
+const greeting = "Hello";
+const name = "World";
 console.log(`${greeting}, ${name}!`);
 ```
 
@@ -335,11 +348,12 @@ $$
 
 ```markdown
 {% links %}
-- site: 余弦の博客
-  url: https://blog.cosine.ren
+
+- site: 青青の博客
+  url: https://blog.Chinny.ren
   owner: cos
   desc: FE / ACG / 手工
-  image: https://blog.cosine.ren/img/avatar.webp
+  image: https://blog.Chinny.ren/img/avatar.webp
   color: '#ed788b'
 - site: 示例博客
   url: https://example.com
@@ -347,15 +361,16 @@ $$
   desc: 一个热爱技术的博客
   image: https://api.dicebear.com/7.x/avataaars/svg?seed=Alice
   color: '#BEDCFF'
-{% endlinks %}
+  {% endlinks %}
 ```
 
 {% links %}
-- site: 余弦の博客
-  url: https://blog.cosine.ren
+
+- site: 青青の博客
+  url: https://blog.Chinny.ren
   owner: cos
   desc: FE / ACG / 手工
-  image: https://blog.cosine.ren/img/avatar.webp
+  image: https://blog.Chinny.ren/img/avatar.webp
   color: '#ed788b'
 - site: 示例博客
   url: https://example.com
@@ -363,7 +378,7 @@ $$
   desc: 一个热爱技术的博客
   image: https://api.dicebear.com/7.x/avataaars/svg?seed=Alice
   color: '#BEDCFF'
-{% endlinks %}
+  {% endlinks %}
 
 ## 多媒体
 
@@ -371,55 +386,59 @@ $$
 
 ```markdown
 {% media audio %}
+
 - name: 示例音频
   url: https://music.163.com/#/song?id=3339210292
-{% endmedia %}
+  {% endmedia %}
 ```
 
 {% media audio %}
+
 - name: 示例音频
   url: https://music.163.com/#/song?id=3339210292
-{% endmedia %}
+  {% endmedia %}
 
 ### 音频歌单
 
 ```markdown
 {% media audio %}
+
 - title: 诗岸歌单 山山～全是山山～
   list:
-    - https://music.163.com/#/playlist?id=8676645748
+  - https://music.163.com/#/playlist?id=8676645748
 - title: 『诗岸』全是山山！
-  list:
-    - https://music.163.com/#/playlist?id=17606384886
-{% endmedia %}
+  list: - https://music.163.com/#/playlist?id=17606384886
+  {% endmedia %}
 ```
 
 {% media audio %}
+
 - title: 诗岸歌单 山山～全是山山～
   list:
-    - https://music.163.com/#/playlist?id=8676645748
+  - https://music.163.com/#/playlist?id=8676645748
 - title: 『诗岸』全是山山！
-  list:
-    - https://music.163.com/#/playlist?id=17606384886
-{% endmedia %}
+  list: - https://music.163.com/#/playlist?id=17606384886
+  {% endmedia %}
 
 ### 视频
 
 ```markdown
 {% media video %}
+
 - name: "测试 1"
   url: https://cdn.kastatic.org/ka-youtube-converted/O_nY1TM2RZM.mp4/O_nY1TM2RZM.mp4#t=0
 - name: "测试 2"
   url: https://cdn.kastatic.org/ka-youtube-converted/O_nY1TM2RZM.mp4/O_nY1TM2RZM.mp4#t=0
-{% endmedia %}
+  {% endmedia %}
 ```
 
 {% media video %}
+
 - name: "测试 1"
   url: https://cdn.kastatic.org/ka-youtube-converted/O_nY1TM2RZM.mp4/O_nY1TM2RZM.mp4#t=0
 - name: "测试 2"
   url: https://cdn.kastatic.org/ka-youtube-converted/O_nY1TM2RZM.mp4/O_nY1TM2RZM.mp4#t=0
-{% endmedia %}
+  {% endmedia %}
 
 ## 练习题
 
@@ -512,16 +531,15 @@ $$
 :::
 
 ````markdown
-
 :::encrypted{password="test"}
 这里是加密的内容，支持完整的 Markdown 语法：
 
-- **粗体**、*斜体*、~~删除线~~
+- **粗体**、_斜体_、~~删除线~~
 - `行内代码`
 - [链接](https://example.com)
 
 ```js
-console.log('加密内容中的代码也有语法高亮！');
+console.log("加密内容中的代码也有语法高亮！");
 ```
 
 行内公式 $E = mc^2$ 也可以正常渲染。
@@ -535,12 +553,12 @@ console.log('加密内容中的代码也有语法高亮！');
 :::encrypted{password="test"}
 这里是加密的内容，支持完整的 Markdown 语法：
 
-- **粗体**、*斜体*、~~删除线~~
+- **粗体**、_斜体_、~~删除线~~
 - `行内代码`
 - [链接](https://example.com)
 
 ```js
-console.log('加密内容中的代码也有语法高亮！');
+console.log("加密内容中的代码也有语法高亮！");
 ```
 
 行内公式 $E = mc^2$ 也可以正常渲染。

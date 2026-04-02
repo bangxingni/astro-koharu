@@ -59,7 +59,9 @@ export function isReservedSlug(slug: string): boolean {
   return RESERVED_ROUTES.has(slug.toLowerCase());
 }
 
-export const routers: Router[] = yamlConfig.navigation ?? [
-  { name: 'Home', path: Routes.Home, icon: 'fa6-solid:house-chimney' },
-  { name: 'About', path: Routes.About, icon: 'fa6-regular:circle-user' },
-];
+export const routers: Router[] = (
+  yamlConfig.navigation ?? [
+    { name: 'Home', path: Routes.Home, icon: 'fa6-solid:house-chimney' },
+    { name: 'About', path: Routes.About, icon: 'fa6-regular:circle-user' },
+  ]
+).filter((router) => router.path !== '/friends');

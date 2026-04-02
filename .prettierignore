@@ -1,0 +1,7 @@
+# Markdown files — Prettier breaks Astro/frontmatter formatting
+*.md
+*.mdx
+
+# Already handled by Biome
+src/
+config/
