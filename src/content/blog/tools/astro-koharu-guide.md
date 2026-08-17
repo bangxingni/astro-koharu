@@ -22,11 +22,11 @@ https://github.com/cosZone/astro-koharu
 
 ### 项目简介
 
-astro-koharu 是一个基于 Astro 5.x 构建的现代化博客系统，从 Hexo 迁移而来，设计灵感和初衷都来自 [Shoka](https://github.com/amehime/hexo-theme-shoka) 主题。欢迎 [fork](https://github.com/cosZone/astro-koharu/fork) 出来制作自己的主题。
+astro-koharu 是一个基于 Astro 7.x 构建的现代化博客系统，从 Hexo 迁移而来，设计灵感和初衷都来自 [Shoka](https://github.com/amehime/hexo-theme-shoka) 主题。欢迎 [fork](https://github.com/cosZone/astro-koharu/fork) 出来制作自己的主题。
 
 **核心特点：**
 
-- 基于 Astro 5.x，静态站点生成，性能优异
+- 基于 Astro 7.x，静态站点生成，性能优异
 - 优雅的深色/浅色主题切换
 - 基于 Pagefind 的无后端全站搜索
 - 完整的 Markdown 增强功能（GFM、代码高亮、自动目录）
@@ -1145,7 +1145,7 @@ announcements:
 - 省略 `startDate` 表示立即生效，省略 `endDate` 表示永不过期
 - `publishDate` 用于时间线弹窗中的日期显示，省略时使用 `startDate`
 - 过期公告建议从配置中删除，保持配置简洁
-- 已读状态存储在 localStorage，key 为 `announcement-read-ids`
+- 已读状态存储在 localStorage，key 为 `announcement-read-ids:v1`（旧 key 会自动迁移）
 
 ### Markdown 增强
 
@@ -2230,6 +2230,7 @@ pnpm koharu new post          # 新建博客文章
 pnpm koharu new friend        # 新建友情链接
 pnpm koharu backup            # 备份博客内容（--full 完整备份）
 pnpm koharu restore           # 还原备份（--latest, --dry-run）
+pnpm koharu migrate           # 迁移旧内容链接（--dry-run）
 pnpm koharu update            # 更新主题（--check, --clean, --rebase, --tag, --dry-run 等）
 pnpm koharu generate          # 生成内容资产（交互式选择）
 pnpm koharu generate lqips    # 生成 LQIP 占位符
@@ -2693,7 +2694,7 @@ import { fadeIn } from "@constants/anim/variants";
 
 | 方面     | Hexo + Shoka   | astro-koharu        |
 | -------- | -------------- | ------------------- |
-| 框架     | Hexo (Node.js) | Astro 5.x           |
+| 框架     | Hexo (Node.js) | Astro 7.x           |
 | 模板引擎 | EJS/Pug        | Astro + React       |
 | 样式     | Stylus         | Tailwind CSS 4.x    |
 | 构建工具 | Webpack        | Vite                |

@@ -34,7 +34,7 @@
 
 ## デプロイ
 
-**Vercel**、**Netlify** などの主要プラットフォームへの自動デプロイに対応。環境に応じてアダプターが自動選択され、認識できないプラットフォームでは Node.js アダプターにフォールバックします（Docker やセルフホスティングに対応）。
+既定では純粋な静的サイトを出力し、**Vercel**、**Netlify**、nginx などへ直接デプロイできます。任意の「ひとこと」動的アーカイブを有効にした場合だけ Astro Node standalone が必要です。両方の方式は[デプロイ構成](./overview/11-deployment-adapters.md)を参照してください。
 
 ### ワンクリックデプロイ
 
@@ -56,7 +56,12 @@ docker / docker-compose で Nginx 付きコンテナを実行することもで�
 docker compose --env-file ./.env -f docker/docker-compose.yml up -d --build
 ```
 
+「ひとこと」を有効にした場合は `pnpm docker:up:dynamic` を使用してください。初期状態では無効です。設定と実運用テストは
+[ひとことガイド](./features/moments.ja.md)を参照してください。
+
 ### ローカル開発
+
+開始する前に、Node.js 22.20.0 以降と pnpm 10.28.2 をインストールしてください。
 
 1. プロジェクトをクローン
 
@@ -79,16 +84,18 @@ pnpm dev
 
 ## 機能
 
-- Astro 5.x ベースの静的サイト生成、優れたパフォーマンス
+- Astro 7.x ベースの静的サイト生成、優れたパフォーマンス
 - エレガントなダーク/ライトテーマ切り替え
 - Pagefind によるサーバーレス全文検索
-- **切り替え可能なコメントシステム**：Waline（推奨）、Giscus、Remark42 に対応 — 設定ファイルでワンクリック切り替え、テーマ自動追従
+- **切り替え可能なコメントシステム**：Waline（推奨）、Giscus、Remark42、Twikoo に対応 — 設定ファイルでワンクリック切り替え、テーマ自動追従
 - 完全な Markdown 拡張（GFM、シンタックスハイライト、自動目次、Mermaid 図表、インフォグラフィック）
 - **Shoka 互換 Markdown 構文**：テキストエフェクト（下線/ハイライト/上付き・下付き/色）、スポイラーテキスト、ルビ注釈、注意ブロック、折りたたみブロック、タブカード、フレンドリンクカード、オーディオ/ビデオプレーヤー、クイズシステム（単一選択/複数選択/正誤/穴埋め）、数式（KaTeX）、コードブロック拡張（title/mark/command）— すべての機能を個別に切り替え可能
+- [切り替え可能] **コンテンツ暗号化**：記事の部分暗号化（暗号化ブロック）と記事全体の暗号化に対応し、AES-256-GCM クライアントサイド復号を使用。パスワードはビルド時のみ使用され、クライアントには渡されません
 - 柔軟なマルチレベルカテゴリーとタグシステム
 - [切り替え可能] マルチシリーズ記事対応（週間ダイジェスト、読書ノートなど、カスタム URL slug 付き）
   > **補足**：featuredSeries は記事数の多いカテゴリー向けで、ホームページのメインリストから分離して見やすくします。シリーズの最新記事のみがホームページでハイライトされ、残りはシリーズ専用ページからアクセスできますが、アーカイブ・カテゴリー・タグページでは通常通り表示されます。
 - [切り替え可能] **Bangumi ページ**：[Bangumi API](https://bgm.tv) と連携し、アニメ/書籍/音楽/ゲームのコレクションをカテゴリータブ、ステータスフィルター、ページネーション付きで表示 — リアルタイムデータ取得
+- [切り替え可能] **ひとこと動的アーカイブ**：koharu-suite の公開チャンネルからメッセージを読み込み、チャンネル・詳細・検索・cursor ページング・branded RSS を提供します。既定の静的デプロイには影響しません。詳細は[ひとことガイド](./features/moments.ja.md)
 - **独立ページシステム**：`src/pages/` に `.md` ファイルを作成してカスタムページ（about、プレイリストなど）を追加、カスタムカバータイトルとコメント切り替えに対応
 - レスポンシブデザイン
 - 下書きとピン留め投稿対応
@@ -117,6 +124,7 @@ pnpm koharu new          # 新規コンテンツ作成（投稿/フレンドリ�
 pnpm koharu backup       # ブログコンテンツと設定のバックアップ
 pnpm koharu restore      # バックアップからリストア
 pnpm koharu update       # テーマの更新
+pnpm koharu migrate      # 履歴記事データをワンステップで移行
 pnpm koharu generate     # コンテンツアセット生成（LQIP、類似度、AI 要約）
 pnpm koharu clean        # 古いバックアップの削除
 pnpm koharu list         # すべてのバックアップを一覧表示
@@ -166,6 +174,21 @@ pnpm koharu restore --latest
 # リストア対象ファイルのプレビュー（ドライラン）
 pnpm koharu restore --dry-run
 ```
+
+### 履歴コンテンツの移行
+
+Astro 6 へのアップグレード後、または古いバックアップのリストア後は、`pnpm dev` または `pnpm build` を実行する前に
+記事リンクを移行してください。旧バージョンから更新する場合は、旧 CLI の `pnpm koharu update` プロセスが完全に終了してから次を実行します：
+
+```bash
+pnpm koharu migrate --dry-run
+pnpm koharu migrate
+```
+
+実行前に基本バックアップを自動作成し、既存の `link` を保持したまま、旧 `slug` を安全に `link` へ変換します。
+両方がない記事には安定したリンクを追加します。何度実行しても安全で、重複リンクや安全に処理できない frontmatter が
+見つかった場合はファイルを変更せず停止します。Koharu CLI で古いバックアップをリストアした場合も同じ移行が自動実行されます。
+`pnpm dev` と `pnpm build` は最初に読み取り専用チェックも実行し、移行が必要な場合は手順を表示して停止します。
 
 ### テーマの更新
 
@@ -227,9 +250,10 @@ pnpm koharu generate all          # すべて生成
 - フレンドリンクリスト
 - お知らせシステム
 - **Bangumi ページ**：`bangumi.userId` を設定して有効化、コメントアウトで無効化
-- **コメントシステム**（Waline / Giscus / Remark42、Waline 推奨）
+- **コメントシステム**（Waline / Giscus / Remark42 / Twikoo、Waline 推奨）
 - アナリティクス（Umami）
 - **国際化（i18n）**
+- **背景音楽（BGM）**：`bgm.audio` を設定してプレイリストを追加、`bgm.metingApi` で [Meting](https://github.com/metowolf/meting) API アドレスをカスタマイズ可能（デフォルト：`https://163.hyc.moe/`、セルフホスティング推奨）
 - クリスマス特集切り替え
 - 開発ツール（`config/site.yaml` の `dev` セクション、ローカルエディタージャンプ用）
 
@@ -287,7 +311,7 @@ src/content/blog/
 
 ```yaml
 comment:
-  provider: waline # 'waline' | 'giscus' | 'remark42' | 'none'
+  provider: waline # 'waline' | 'giscus' | 'remark42' | 'twikoo' | 'none'
   waline:
     serverURL: https://your-waline-server.vercel.app
     # ... その他の設定
@@ -328,6 +352,7 @@ comment:
 | ---------------------------------------------- | ---------- | --------------------------------------------------------------- | -------------------------------------- |
 | **[Cosine のブログ](http://blog.cosine.ren/)** | **cosine** | [cosZone/astro-koharu](https://github.com/cosZone/astro-koharu) | このテーマ                              |
 | [XueHua のブログ](https://xhblog.top/)         | XueHua-s   | [XueHua-s/astro-snow](https://github.com/XueHua-s/astro-snow)   | 機能を簡素化、スタートページを追加      |
+| [Ksable's 小屋](https://blog.ksable.top/)      | Ksable     | [God-2077/astro-blog](https://github.com/God-2077/astro-blog)  | 一部機能を変更 / 追加                  |
 
 ## 謝辞
 

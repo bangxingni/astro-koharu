@@ -16,7 +16,7 @@ astro-koharu ブログテーマへようこそ！
 
 ## このテーマについて
 
-astro-koharu は Astro 5.x をベースにしたモダンなブログシステムで、Hexo の Shoka テーマにインスピレーションを受けています。主な特徴：
+astro-koharu は Astro 7.x をベースにしたモダンなブログシステムで、Hexo の Shoka テーマにインスピレーションを受けています。主な特徴：
 
 - **高パフォーマンス** - Astro による静的サイト生成で、超高速な読み込みを実現
 - **エレガントなデザイン** - アニメ風の美学とピンク＆ブルーの配色
@@ -62,7 +62,7 @@ Vercel で簡単にデプロイ：
 
 ## さらに詳しく
 
-- [Markdown 機能デモ](/post/markdown-features) ですべての Markdown 拡張機能をチェック
-- [使い方ガイド](/post/astro-koharu-guide) で詳細な設定方法を確認
+- [Markdown 機能デモ](/ja/post/markdown-features) ですべての Markdown 拡張機能をチェック
+- [使い方ガイド](/ja/post/astro-koharu-guide) で詳細な設定方法を確認
 
 ブログをお楽しみください！

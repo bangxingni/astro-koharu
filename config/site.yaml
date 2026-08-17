@@ -322,7 +322,7 @@ announcements:
 #   enableLinkEmbed: 启用链接卡片预览（解析 OG 信息）
 #   enableTweetEmbed: 启用推文嵌入展示
 #   enableOGPreview: 启用 Open Graph 预览卡片
-#   previewCacheTime: 预览信息缓存时间（秒）
+#   previewCacheTime: 预览信息缓存时间（天）
 #   lazyLoadEmbeds: 延迟加载嵌入内容（提升性能）
 #   postCardImagePosition: 文章卡片封面图位置 (alternating/left/right)
 # -----------------------------------------------------------------------------
@@ -334,9 +334,10 @@ content:
   enableCodeCopy: true # 代码复制按钮
   enableCodeFullscreen: true # 代码全屏按钮
   enableLinkEmbed: true # 链接卡片预览
+  enableCodePenEmbed: true # CodePen 嵌入
   enableTweetEmbed: true # 推文嵌入
   enableOGPreview: true # OG 预览卡片
-  previewCacheTime: 3600 # 预览缓存时间(秒)
+  previewCacheTime: 30 # 预览缓存时间(天)
   lazyLoadEmbeds: true # 延迟加载嵌入
   postCardImagePosition: alternating # 文章卡片封面图位置在首页的显示控制 alternating 默认交替显示 left 封面图始终在左侧 right 封面图始终在右侧
   # Shoka 兼容功能（默认全部启用，设为 false 可关闭）
@@ -350,6 +351,28 @@ content:
   enableCodeMeta: true # 代码块增强 (title, mark, command)
   enableQuiz: true # 练习题交互功能
   enableEncryptedBlock: true # :::encrypted{password="..."} 加密内容块
+
+# =============================================================================
+# Moments Archive (optional)
+# 碎碎念动态归档 - 默认关闭；启用时还需配置 KOHARU_SUITE_URL 和 dynamic Docker target
+# =============================================================================
+moments:
+  enabled: false
+  path: moments # 支持嵌套路径，例如 life/moments；不要添加首尾斜线
+  title: 碎碎念
+  description: 记录频道中的日常消息
+  # ogImage: /img/moments-og.png
+  # pathAliases:
+  #   - telegram
+  # channels: # 可省略；省略时按 suite 返回结果展示所有公开频道
+  #   - id: 550e8400-e29b-41d4-a716-446655440000
+  #     slug: daily
+  #     title: 日常
+  #     primary: true
+  #     hidden: false
+  #     ogImage: /img/daily-og.png
+  #     aliases:
+  #       - old-daily
 
 # =============================================================================
 # Navigation Routes
@@ -376,6 +399,9 @@ navigation:
     nameKey: nav.weekly
     path: /weekly
     icon: ri:newspaper-line
+  # Optional explicit Moments position. When omitted, enabled Moments is inserted after Archives.
+  # - feature: moments
+  #   icon: ri:chat-smile-3-fill
   - name: 文章 # 有子菜单时，path 可省略
     nameKey: nav.posts
     icon: ri:quill-pen-ai-fill
